@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import "Liddell-Swift.h"
 #import <Kitten/libKitten.h>
 #import "GcUniversal/GcColorPickerUtils.h"
 #import <Cephei/HBPreferences.h>
@@ -15,6 +16,7 @@ BOOL showMessageSwitch = YES;
 NSString* heightValue = @"40";
 NSString* cornerRadiusValue = @"8";
 NSString* offsetValue = @"0";
+NSString* scrollRateValue = @"50";
 
 // background
 NSString* backgroundColorValue = @"0";
@@ -52,15 +54,10 @@ NSString* customBorderColorValue = @"FFFFFF";
 @property(nonatomic, retain)UIBlurEffect* liddellBlur;
 @property(nonatomic, retain)UIVisualEffectView* liddellBlurView;
 @property(nonatomic, retain)UIImageView* liddellIconView;
-@property(nonatomic, retain)UILabel* liddellTitleLabel;
-@property(nonatomic, retain)UILabel* liddellContentLabel;
+@property(nonatomic, retain)MarqueeLabel* liddellTitleLabel;
+@property(nonatomic, retain)MarqueeLabel* liddellContentLabel;
 @end
 
 @interface UIView (Liddell)
 - (id)_viewControllerForAncestor;
-@end
-
-@interface UILabel (Liddell)
-- (void)setMarqueeEnabled:(BOOL)arg1;
-- (void)setMarqueeRunning:(BOOL)arg1;
 @end

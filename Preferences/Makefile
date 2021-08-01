@@ -1,3 +1,5 @@
+PREFIX = $(THEOS)/toolchain/Xcode.xctoolchain/usr/bin/
+
 BUNDLE_NAME = LiddellPreferences
 $(BUNDLE_NAME)_FILES = $(wildcard *.m)
 $(BUNDLE_NAME)_CFLAGS = -fobjc-arc -DTHEOS_LEAN_AND_MEAN

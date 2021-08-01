@@ -8,8 +8,8 @@
 %property(nonatomic, retain)UIBlurEffect* liddellBlur;
 %property(nonatomic, retain)UIVisualEffectView* liddellBlurView;
 %property(nonatomic, retain)UIImageView* liddellIconView;
-%property(nonatomic, retain)UILabel* liddellTitleLabel;
-%property(nonatomic, retain)UILabel* liddellContentLabel;
+%property(nonatomic, retain)MarqueeLabel* liddellTitleLabel;
+%property(nonatomic, retain)MarqueeLabel* liddellContentLabel;
 
 - (void)didMoveToWindow { // add Liddell
 
@@ -89,7 +89,7 @@
 
     // app name
     if (showTitleSwitch && ![self liddellTitleLabel]) {
-        self.liddellTitleLabel = [UILabel new];
+        self.liddellTitleLabel = [MarqueeLabel new];
         [[self liddellTitleLabel] setText:[[self title] capitalizedString]];
         [[self liddellTitleLabel] setFont:[UIFont boldSystemFontOfSize:[titleFontSizeValue intValue]]];
         if ([textContentValue intValue] == 0 || [textContentValue intValue] == 2) {
@@ -138,7 +138,7 @@
 
     // notification title and message
     if (showMessageSwitch && ![self liddellContentLabel]) {
-        self.liddellContentLabel = [UILabel new];
+        self.liddellContentLabel = [MarqueeLabel new];
         if ([self primaryText] && [self secondaryText]) [[self liddellContentLabel] setText:[NSString stringWithFormat:@"%@: %@", [self primaryText], [self secondaryText]]];
         else [[self liddellContentLabel] setText:[[self secondaryText] stringByReplacingOccurrencesOfString:@"\n" withString:@": "]];
         [[self liddellContentLabel] setFont:[UIFont systemFontOfSize:[contentFontSizeValue intValue]]];
@@ -167,27 +167,27 @@
                 [[self liddellContentLabel] setTextColor:[GcColorPickerUtils colorWithHex:customTextColorValue]];
             }
         }
-        [[self liddellContentLabel] setMarqueeEnabled:YES];
-        [[self liddellContentLabel] setMarqueeRunning:YES];
+        [[self liddellContentLabel] setScrollRate:[scrollRateValue doubleValue]];
+        [[self liddellContentLabel] setFadeLength:5];
         [[self liddellView] addSubview:[self liddellContentLabel]];
 
         [[self liddellContentLabel] setTranslatesAutoresizingMaskIntoConstraints:NO];
         if ((showIconSwitch && showTitleSwitch) || (!showIconSwitch && showTitleSwitch)) {
             [NSLayoutConstraint activateConstraints:@[
                 [self.liddellContentLabel.leadingAnchor constraintEqualToAnchor:self.liddellTitleLabel.trailingAnchor constant:8],
-                [self.liddellContentLabel.trailingAnchor constraintEqualToAnchor:self.liddellView.trailingAnchor constant:-8],
+                [self.liddellContentLabel.trailingAnchor constraintEqualToAnchor:self.liddellView.trailingAnchor constant:-12],
                 [self.liddellContentLabel.centerYAnchor constraintEqualToAnchor:self.liddellView.centerYAnchor],
             ]];
         } else if (showIconSwitch && !showTitleSwitch) {
             [NSLayoutConstraint activateConstraints:@[
                 [self.liddellContentLabel.leadingAnchor constraintEqualToAnchor:self.liddellIconView.trailingAnchor constant:8],
-                [self.liddellContentLabel.trailingAnchor constraintEqualToAnchor:self.liddellView.trailingAnchor constant:-8],
+                [self.liddellContentLabel.trailingAnchor constraintEqualToAnchor:self.liddellView.trailingAnchor constant:-12],
                 [self.liddellContentLabel.centerYAnchor constraintEqualToAnchor:self.liddellView.centerYAnchor],
             ]];
         } else if (!(showIconSwitch && [self liddellIconView]) && !(showTitleSwitch && [self liddellTitleLabel])) {
             [NSLayoutConstraint activateConstraints:@[
                 [self.liddellContentLabel.leadingAnchor constraintEqualToAnchor:self.liddellView.leadingAnchor constant:8],
-                [self.liddellContentLabel.trailingAnchor constraintEqualToAnchor:self.liddellView.trailingAnchor constant:-8],
+                [self.liddellContentLabel.trailingAnchor constraintEqualToAnchor:self.liddellView.trailingAnchor constant:-12],
                 [self.liddellContentLabel.centerYAnchor constraintEqualToAnchor:self.liddellView.centerYAnchor],
             ]];
         }
@@ -195,7 +195,7 @@
 
 }
 
-- (void)_setGrabberVisible:(BOOL)arg1 {
+- (void)_setGrabberVisible:(BOOL)arg1 { // hide the notification grabber
 
     %orig(NO);
 
@@ -221,6 +221,7 @@
     [preferences registerObject:&heightValue default:@"40" forKey:@"height"];
     [preferences registerObject:&cornerRadiusValue default:@"8" forKey:@"cornerRadius"];
     [preferences registerObject:&offsetValue default:@"0" forKey:@"offset"];
+    [preferences registerObject:&scrollRateValue default:@"50" forKey:@"scrollRate"];
 
     // background
     [preferences registerObject:&backgroundColorValue default:@"0" forKey:@"backgroundColor"];

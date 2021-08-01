@@ -23,6 +23,21 @@
             <key>user</key>
             <string>NepetaDev</string>
         </dict>
+
+        <dict>
+            <key>cell</key>
+            <string>PSGroupCell</string>
+            <key>label</key>
+            <string>Marquee label</string>
+        </dict>
+        <dict>
+            <key>cellClass</key>
+            <string>HBLinkTableCell</string>
+            <key>label</key>
+            <string>Charles Powell</string>
+            <key>url</key>
+            <string>https://github.com/cbpowell</string>
+        </dict>
         
         <dict>
 			<key>cell</key>
