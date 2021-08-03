@@ -1,5 +1,5 @@
 #import <UIKit/UIKit.h>
-#import "Liddell-Swift.h"
+#import "MarqueeLabel.h"
 #import <Kitten/libKitten.h>
 #import "GcUniversal/GcColorPickerUtils.h"
 #import <Cephei/HBPreferences.h>
@@ -54,7 +54,7 @@ NSString* customBorderColorValue = @"FFFFFF";
 @property(nonatomic, retain)UIBlurEffect* liddellBlur;
 @property(nonatomic, retain)UIVisualEffectView* liddellBlurView;
 @property(nonatomic, retain)UIImageView* liddellIconView;
-@property(nonatomic, retain)MarqueeLabel* liddellTitleLabel;
+@property(nonatomic, retain)UILabel* liddellTitleLabel;
 @property(nonatomic, retain)MarqueeLabel* liddellContentLabel;
 @end
 

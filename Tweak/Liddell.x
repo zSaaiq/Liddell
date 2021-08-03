@@ -8,7 +8,7 @@
 %property(nonatomic, retain)UIBlurEffect* liddellBlur;
 %property(nonatomic, retain)UIVisualEffectView* liddellBlurView;
 %property(nonatomic, retain)UIImageView* liddellIconView;
-%property(nonatomic, retain)MarqueeLabel* liddellTitleLabel;
+%property(nonatomic, retain)UILabel* liddellTitleLabel;
 %property(nonatomic, retain)MarqueeLabel* liddellContentLabel;
 
 - (void)didMoveToWindow { // add Liddell
@@ -89,7 +89,7 @@
 
     // app name
     if (showTitleSwitch && ![self liddellTitleLabel]) {
-        self.liddellTitleLabel = [MarqueeLabel new];
+        self.liddellTitleLabel = [UILabel new];
         [[self liddellTitleLabel] setText:[[self title] capitalizedString]];
         [[self liddellTitleLabel] setFont:[UIFont boldSystemFontOfSize:[titleFontSizeValue intValue]]];
         if ([textContentValue intValue] == 0 || [textContentValue intValue] == 2) {
@@ -167,7 +167,7 @@
                 [[self liddellContentLabel] setTextColor:[GcColorPickerUtils colorWithHex:customTextColorValue]];
             }
         }
-        [[self liddellContentLabel] setScrollRate:[scrollRateValue doubleValue]];
+        [[self liddellContentLabel] setRate:[scrollRateValue doubleValue]];
         [[self liddellContentLabel] setFadeLength:5];
         [[self liddellView] addSubview:[self liddellContentLabel]];
 
