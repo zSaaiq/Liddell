@@ -1,6 +1,6 @@
 #import "LDLRootListController.h"
 
-@implementation LDLAppearanceSettings
+@implementation HBRootListController
 
 - (UIColor *)tintColor {
 

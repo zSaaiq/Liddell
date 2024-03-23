@@ -1,16 +1,13 @@
 #import <Preferences/PSListController.h>
 #import <Preferences/PSSpecifier.h>
 #import <CepheiPrefs/HBRootListController.h>
-#import <CepheiPrefs/HBAppearanceSettings.h>
+#import <CepheiPrefs/CepheiPrefs.h>
 #import <Cephei/HBPreferences.h>
 #import <Cephei/HBRespringController.h>
 #import "WelcomeViewController.h"
 
-@interface LDLAppearanceSettings : HBAppearanceSettings
-@end
-
 @interface LDLRootListController : HBRootListController
-@property(nonatomic, retain)LDLAppearanceSettings* appearanceSettings;
+@property(nonatomic, retain)HBAppearanceSettings* appearanceSettings;
 @property(nonatomic, retain)HBPreferences* preferences;
 @property(nonatomic, retain)UISwitch* enableSwitch;
 @property(nonatomic, retain)UIBarButtonItem* item;

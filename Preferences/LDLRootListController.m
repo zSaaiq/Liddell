@@ -6,7 +6,7 @@
 
     [super viewDidLoad];
 
-    self.appearanceSettings = [LDLAppearanceSettings new];
+    self.appearanceSettings = [HBAppearanceSettings new];
     self.hb_appearanceSettings = [self appearanceSettings];
 
 
@@ -26,7 +26,7 @@
     self.navigationItem.titleView = [UIView new];
     self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     [[self titleLabel] setFont:[UIFont boldSystemFontOfSize:17]];
-    [[self titleLabel] setText:@"1.2.2"];
+    [[self titleLabel] setText:@"1.3"];
     [[self titleLabel] setTextColor:[UIColor whiteColor]];
     [[self titleLabel] setTextAlignment:NSTextAlignmentCenter];
     [[[self navigationItem] titleView] addSubview:[self titleLabel]];
@@ -42,7 +42,7 @@
 
     self.iconView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 10, 10)];
     [[self iconView] setContentMode:UIViewContentModeScaleAspectFit];
-    [[self iconView] setImage:[UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/LiddellPreferences.bundle/icon.png"]];
+    [[self iconView] setImage:[UIImage imageWithContentsOfFile:@"/var/jb/Library/PreferenceBundles/LiddellPreferences.bundle/icon.png"]];
     [[self iconView] setAlpha:0];
     [[[self navigationItem] titleView] addSubview:[self iconView]];
 
@@ -62,7 +62,7 @@
     self.headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
     self.headerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
     [[self headerImageView] setContentMode:UIViewContentModeScaleAspectFill];
-    [[self headerImageView] setImage:[UIImage imageWithContentsOfFile:@"/Library/PreferenceBundles/LiddellPreferences.bundle/Banner.png"]];
+    [[self headerImageView] setImage:[UIImage imageWithContentsOfFile:@"/var/jb/Library/PreferenceBundles/LiddellPreferences.bundle/Banner.png"]];
     [[self headerImageView] setClipsToBounds:YES];
     [[self headerView] addSubview:[self headerImageView]];
 
@@ -74,11 +74,11 @@
         [self.headerImageView.bottomAnchor constraintEqualToAnchor:self.headerView.bottomAnchor],
     ]];
 
-    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/DynamicLibraries/Liddell.disabled"]) {
+    if ([[NSFileManager defaultManager] fileExistsAtPath:@"/var/jb/Library/MobileSubstrate/DynamicLibraries/Liddell.disabled"]) {
         [[self enableSwitch] setEnabled:NO];
 
         UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Liddell" message:@"Liddell has detected that you have disabled it with iCleaner Pro, here are some quick actions you can perform" preferredStyle:UIAlertControllerStyleAlert];
-        
+
         UIAlertAction* resetAction = [UIAlertAction actionWithTitle:@"Reset preferences" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
             [self resetPreferences];
         }];
@@ -96,7 +96,7 @@
         [alertController addAction:ignoreAction];
 
         [self presentViewController:alertController animated:YES completion:nil];
-    } else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/DynamicLibraries/DayNightSwitch.dylib"]) {
+    } else if ([[NSFileManager defaultManager] fileExistsAtPath:@"/var/jb/Library/MobileSubstrate/DynamicLibraries/DayNightSwitch.dylib"]) {
         UIAlertController* alertController = [UIAlertController alertControllerWithTitle:@"Liddell" message:@"Liddell has detected that you have DayNightSwitch installed, which causes issues with Liddell's preferences\n\n To continue, please disable DayNightSwitch with iCleaner Pro or uninstall it temporarily" preferredStyle:UIAlertControllerStyleAlert];
 
         UIAlertAction* confirmAction = [UIAlertAction actionWithTitle:@"Okey" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
@@ -113,7 +113,7 @@
             [[self preferences] setBool:YES forKey:@"wasWelcomed"];
         }
     }
-    
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -151,7 +151,7 @@
 	if (_specifiers == nil) _specifiers = [self loadSpecifiersFromPlistName:@"Root" target:self];
 
 	return _specifiers;
-    
+
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -180,7 +180,7 @@
 }
 
 - (void)setEnabled {
-        
+
     if ([[[self preferences] objectForKey:@"Enabled"] isEqual:@(YES)])
         [[self preferences] setBool:NO forKey:@"Enabled"];
     else
@@ -202,7 +202,7 @@
 - (void)resetPrompt {
 
     UIAlertController* resetAlert = [UIAlertController alertControllerWithTitle:@"Liddell" message:@"Do you really want to reset your preferences?" preferredStyle:UIAlertControllerStyleActionSheet];
-	
+
     UIAlertAction* confirmAction = [UIAlertAction actionWithTitle:@"Yaw" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
         [self resetPreferences];
 	}];
@@ -221,7 +221,7 @@
     for (NSString* key in [[self preferences] dictionaryRepresentation]) {
         if (![key isEqualToString:@"wasWelcomed"]) [[self preferences] removeObjectForKey:key];
     }
-    
+
     [[self enableSwitch] setOn:NO animated:YES];
     [self respring];
 
@@ -236,7 +236,7 @@
     [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         [[self blurView] setAlpha:1];
     } completion:^(BOOL finished) {
-        if (![[NSFileManager defaultManager] fileExistsAtPath:@"/Library/MobileSubstrate/DynamicLibraries/shuffle.dylib"])
+        if (![[NSFileManager defaultManager] fileExistsAtPath:@"/var/jb/Library/MobileSubstrate/DynamicLibraries/shuffle.dylib"])
             [HBRespringController respringAndReturnTo:[NSURL URLWithString:@"prefs:root=Liddell"]];
         else
             [HBRespringController respringAndReturnTo:[NSURL URLWithString:@"prefs:root=Tweaks&path=Liddell"]];
